@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ZYLORACLOUD menu installer
-# Ubuntu 24.04 LTS | Panel / Wings / Blueprint themes / Blueprint extensions
+# Ubuntu 22.04 / 24.04 LTS | Panel / Wings / Blueprint themes / Blueprint extensions
 set -Eeuo pipefail
 IFS=$'\n\t'
 
@@ -21,8 +21,8 @@ pause(){ read -r -p "Press Enter to continue..."; }
 [[ $EUID -eq 0 ]] || { fail "Run as root: sudo bash $0"; exit 1; }
 [[ -r /etc/os-release ]] || { fail "Cannot detect operating system."; exit 1; }
 . /etc/os-release
-[[ "${ID:-}" == ubuntu && "${VERSION_ID:-}" == "24.04" ]] || {
-  fail "This menu installer is designed for Ubuntu 24.04 LTS. Detected: ${PRETTY_NAME:-unknown}"
+[[ "${ID:-}" == ubuntu && ( "${VERSION_ID:-}" == "22.04" || "${VERSION_ID:-}" == "24.04" ) ]] || {
+  fail "Supported operating systems: Ubuntu 22.04 LTS and 24.04 LTS. Detected: ${PRETTY_NAME:-unknown}"
   exit 1
 }
 command -v curl >/dev/null 2>&1 || { apt-get update && apt-get install -y curl; }
